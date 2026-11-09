@@ -1,6 +1,6 @@
 cask "macpyeon" do
-  version "0.2.0"
-  sha256 "402f0dcd6bfe61936572994d26635f479d8193b2ef65db334737aa4acd505078"
+  version "0.2.1"
+  sha256 "336460a545c84fb7fda22b7e62f2f885cf3b4a5d0a0dbe5edf4e5ceee57f22ab"
 
   url "https://github.com/macpyeon/EasyMacKR/releases/download/v#{version}/MacPyeon-#{version}.zip"
   name "MacPyeon"
@@ -15,9 +15,6 @@ cask "macpyeon" do
   # Apple 공증(notarization)을 받지 않은 앱이라, 내려받은 표시(격리 속성)를 지워야 처음 실행이 막히지 않는다.
   postflight_steps do
     run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "/Applications/MacPyeon.app"], must_succeed: false
-    # 배포판은 버전마다 서명이 달라서, 예전 버전의 손쉬운 사용 항목이 남으면 켜 있어도 동작하지 않는다.
-    # 지워 두면 새 버전이 처음 켜질 때 권한을 새로 요청한다.
-    run "/usr/bin/tccutil", args: ["reset", "Accessibility", "kr.macpyeon.MacPyeon"], must_succeed: false
   end
 
   uninstall quit: "kr.macpyeon.MacPyeon"
